@@ -4,7 +4,7 @@ public class Descanso {
     private int horasDescanso;
     private int numeroSemanas;
 
-    public Descanso(int horasDescanso, int numeroSemanas) {
+    public Descanso(int horasDescanso, int numeroSemanas) { // esse construtor ficou sem utilidade no código, pq não foi usado construtor com parâmetro nesse main
         this.horasDescanso = horasDescanso;
         this.numeroSemanas = numeroSemanas;
     }

@@ -6,12 +6,13 @@ public class RegistroResumos {
     private String[] conteudos;
     private int numeroResumos;
     private int proximo;
-    private int qtdResumos = 0;
+    private int qtdResumos;      // só coisa de Eliane: começar atributos sem valor algum, não fiz isso em todas do meu, mas só pra digitar algo mesmo kkkkkkkk
 
     public RegistroResumos(int numeroDeResumos) {
         this.numeroResumos = numeroDeResumos;
         this.tema = new String[numeroDeResumos];
         this.conteudos = new String[numeroDeResumos];
+        this.qtdResumos = 0;
     }
 
     public void adiciona(String tema, String conteudo) {
