@@ -59,6 +59,7 @@ public class Coisa {
 
 
         String[] resumos = meusResumos.pegaResumos();
+        String[] temas = meusResumos.busca("classes");
 
 
         for (int i = 0; i < meusResumos.conta(); i++) {
@@ -71,5 +72,6 @@ public class Coisa {
         System.out.println(meusResumos.imprimeResumos());
         System.out.println(meusResumos.temResumo("Classes"));
         System.out.println(meusResumos.temResumo("Objetos"));
+        System.out.println(temas);
     }
 }

@@ -1,63 +1,65 @@
 package lab2;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
+
 public class RegistroResumos {
-
-    private String[] tema;
-    private String[] conteudos;
-    private int numeroResumos;
+    private Resumo[] resumos;
     private int proximo;
-    private int qtdResumos;      // só coisa de Eliane: começar atributos sem valor algum, não fiz isso em todas do meu, mas só pra digitar algo mesmo kkkkkkkk
+    private int qtdResumos;
 
+    // metodo construtor
     public RegistroResumos(int numeroDeResumos) {
-        this.numeroResumos = numeroDeResumos;
-        this.tema = new String[numeroDeResumos];
-        this.conteudos = new String[numeroDeResumos];
+        this.resumos = new Resumo[numeroDeResumos];
         this.qtdResumos = 0;
     }
 
+    // metodo adiciona
     public void adiciona(String tema, String conteudo) {
-
-        for (int i = 0; i < numeroResumos; i++) {
-            if (this.tema[i] != null && this.tema[i].equals(tema)) {
+        for (int i = 0; i < this.resumos.length; i++) {
+            if (this.resumos[i] != null && tema.equals(this.resumos[i].getTema())) {
                 return;
             }
         }
 
-        this.tema[proximo] = tema;
-        this.conteudos[proximo] = conteudo;
+        this.resumos[proximo] = new Resumo(tema, conteudo);
 
-        if (qtdResumos < numeroResumos) {
+        if (qtdResumos < resumos.length) {
             qtdResumos++;
         }
 
         proximo++;
 
-        if (proximo == numeroResumos) {
+        if (proximo == resumos.length) {
             proximo = 0;
         }
     }
 
+    // metodo conta
     public int conta() {
         return qtdResumos;
     }
 
+    // metodo pegaResumos
     public String[] pegaResumos() {
-        String[] resumos = new String[numeroResumos];
+        String[] resumosRetorno = new String[resumos.length];
 
-        for (int i = 0; i < numeroResumos; i++) {
-            if (tema[i] != null) {
-                resumos[i] = tema[i] + ": " + conteudos[i];
+        for (int i = 0; i < resumos.length; i++) {
+            if (this.resumos[i] != null) {
+                resumosRetorno[i] = resumos[i].getTema() + ": " + resumos[i].getConteudo();
             }
         }
 
-        return resumos;
+        return resumosRetorno;
     }
 
+    // metodo imprimeResumos
     public String imprimeResumos() {
         String retorno = "- " + qtdResumos + " resumo(s) cadastrado(s)\n- ";
 
         for (int i = 0; i < qtdResumos; i++) {
-            retorno += tema[i];
+            retorno += this.resumos[i].getTema();
 
             if (i < qtdResumos - 1) {
                 retorno += " | ";
@@ -67,13 +69,35 @@ public class RegistroResumos {
         return retorno;
     }
 
+    // metodo temResumo
     public boolean temResumo(String temaBusca) {
-        for (int i = 0; i < numeroResumos; i++) {
-            if (tema[i] != null && temaBusca.equals(tema[i])) {
+        for (int i = 0; i < resumos.length; i++) {
+            if (this.resumos[i] != null && temaBusca.equals(resumos[i].getTema())) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    // metodo busca
+    public String[] busca(String chaveDeBusca) {
+        int qtTemas = 0;
+        String[] listaTemas = new String[this.qtdResumos];
+
+        for (int i = 0; i < this.qtdResumos; i++) {
+            String[] splitResumo = this.resumos[i].getConteudo().split(" ");
+            for (int j = 0; j < splitResumo.length; j++) {
+                if (splitResumo[j].equalsIgnoreCase(chaveDeBusca)) {
+                    listaTemas[qtTemas] = this.resumos[i].getTema();
+                    qtTemas++;
+                    break;
+                }
+            }
+        }
+
+        String[] temasRetorno = Arrays.copyOf(listaTemas, qtTemas);
+        Arrays.sort(temasRetorno);
+        return temasRetorno;
     }
 }
